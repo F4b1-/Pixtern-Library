@@ -27,12 +27,11 @@ How to use Pixtern within your Project (Eclipse)
 
 1. Clone the Library on your machine
 2. Download the libraries needed (see below)
-3. Copy the content of the OpenCV-VERSION-android-sdk/sdk/libs/armeabi-v7a folder to the libs folder in .../Pixtern Library/libs/armeabi-v7a. **Note:** You only need libopencv_java.so and libopencv_info.so.
-4. Open Eclipse
-5. File > Import > Existing Projects into Workspace > Select root directory > link to the Pixtern Library directory
-6. Rightclick on your Project > Properties > Android > Library > Add > Pixtern Library
-7. Add the tesseract, OpenCV and progressWheel libraries to your workspace 
-8. Rightclick on Pixtern Library and add the libraries just like in step 6
+3. Open Eclipse
+4. File > Import > Existing Projects into Workspace > Select root directory > link to the Pixtern Library directory
+5. Rightclick on your Project > Properties > Android > Library > Add > Pixtern Library
+6. Add the tesseract, OpenCV and progressWheel libraries to your workspace 
+7. Rightclick on Pixtern Library and add the libraries just like in step 6
 
 
 You can use the sample app to get an idea how to use the library activities. If you want to call one of the Activities in your own code, use the following: 
