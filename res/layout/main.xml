@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:visibility="visible" >
+
+    <RelativeLayout
+        android:id="@+id/my_menu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:inputType="textMultiLine"
+        android:background="#ff868686">
+
+
+        <ImageView
+        android:id="@+id/logo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/ic_action_logo"></ImageView>
+        <requestFocus />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_action_back_icon" />
+
+    </RelativeLayout>
+
+<RelativeLayout 
+     android:layout_width="fill_parent"
+        android:layout_weight="1" android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+</ImageView>
+    
+    <com.todddavies.components.progressbar.ProgressWheel
+        android:id="@+id/progressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        ProgressWheel:barColor="#07d77c"
+        ProgressWheel:barLength="30dp"
+        ProgressWheel:barWidth="4dp"
+        ProgressWheel:rimColor="#ff252525"
+        ProgressWheel:rimWidth="5dp"
+        ProgressWheel:text="Checking..."
+        ProgressWheel:textColor="#FFFFFFFF"
+        ProgressWheel:textSize="14sp"
+        ProgressWheel:circleColor="#FF6F6F6F"
+        android:visibility="invisible" />
+ 
+    </RelativeLayout>
+    
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#ff252525"
+         android:layout_weight="0.05">
+    <ImageView
+        android:layout_height="80dp"
+        android:text="Load Picture"
+        android:layout_width="80dp"
+        android:id="@+id/buttonLoadPicture"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/upload_image_icon"></ImageView>
+    </RelativeLayout>
+
+</LinearLayout>

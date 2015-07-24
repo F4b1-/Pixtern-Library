@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:opencv="http://schemas.android.com/apk/res-auto"
+    >
+
+    <RelativeLayout
+        android:id="@+id/my_menu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textMultiLine"
+        android:background="#ff646464">
+
+	   <ImageView
+        android:id="@+id/logo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        
+        android:src="@drawable/ic_action_logo"></ImageView> 
+        <requestFocus />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/rotate"
+            android:src="@drawable/ic_action_back_icon" />
+
+        <ImageView
+            android:id="@+id/flash"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="60dp"
+            android:src="@drawable/ic_action_flash_icon"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/logo" />
+
+        <ImageView
+            android:id="@+id/rotate"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_action_rotate_camera"
+            android:layout_marginRight="79dp"
+            android:layout_alignTop="@+id/flash"
+            android:layout_toLeftOf="@+id/back" />
+
+    </RelativeLayout>
+
+<RelativeLayout 
+     android:layout_width="fill_parent"
+        android:layout_weight="1" android:layout_height="match_parent"
+    >
+    
+     <org.opencv.android.JavaCameraView
+         android:id="@+id/fd_activity_surface_view"
+         android:layout_width="fill_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         opencv:camera_id="front"
+         opencv:show_fps="false" />
+     
+       <org.opencv.android.JavaCameraView
+         android:id="@+id/camera_back"
+         android:layout_width="fill_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         opencv:camera_id="back"
+         opencv:show_fps="false"
+         android:visibility="invisible"
+          />
+     
+     
+     
+     
+     <org.opencv.android.JavaCameraView
+         android:id="@+id/camView"
+         android:layout_width="1dp"
+         android:layout_height="1dp"
+         android:layout_weight="1"
+         opencv:camera_id="front"
+         opencv:show_fps="false" />
+     
+     <ImageView
+         android:id="@+id/frame_not"
+         android:layout_width="350dp"
+         android:layout_height="350dp"
+         android:layout_centerHorizontal="true"
+         android:layout_centerVertical="true"
+         android:src="@drawable/frame_red" />
+     
+     <ImageView
+         android:id="@+id/frame_det"
+         android:layout_width="350dp"
+         android:layout_height="350dp"
+         android:layout_centerHorizontal="true"
+         android:layout_centerVertical="true"
+         android:src="@drawable/frame"
+         android:visibility="gone" />
+
+<RelativeLayout
+    android:layout_width="225dp"
+    android:layout_height="50dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="14dp" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ffffffff"
+        android:textSize="25dp"
+        
+         />
+
+    <ImageView
+        android:id="@+id/x"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+         android:layout_centerVertical="true"
+        
+        android:src="@drawable/ic_action_error" />
+</RelativeLayout>
+     
+    </RelativeLayout>
+    <RelativeLayout
+         android:layout_width="match_parent"
+        android:layout_height="6dp"
+        >
+  <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/progressBar2"
+        android:progressDrawable="@drawable/progressbar2"
+        android:progress="0"
+        />
+</RelativeLayout>
+  
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#ff252525"
+         android:layout_weight="0.05">
+     
+         <ImageView
+        android:layout_height="80dp"
+        android:text="Load Picture"
+        android:layout_width="80dp"
+        android:id="@+id/buttonLoadPicture"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:src="@drawable/take_picture_icon"></ImageView>
+         
+    </RelativeLayout>
+
+</LinearLayout>

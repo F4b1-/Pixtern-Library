@@ -1,0 +1,6 @@
+face.detection=true
+eyes.detection=true
+relative.face.size=0.1f
+percentage.to.pass=50
+auto.snap=false
+snap.when.detected=false
