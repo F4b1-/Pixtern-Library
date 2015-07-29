@@ -18,10 +18,6 @@ The face recognition enables the user to get realtime feedback(currently: Face a
 The card validation enables the user to take a picture of a card that is validated against a template. It is possible to specify certain pattern (e.g. symbols or emblems) that all the cards of this type have to meet. Then, card information is beeing fetched from the text regions that have been specified in the tempate file.
 
 
-How to use Pixtern within your Project (Android Studio)
--------------
-Click [here ](https://bitbucket.org/F4b1/pixternonstudio/overview)for the Android Studio Version.
-
 How to use Pixtern within your Project (Eclipse)
 -------------
 
