@@ -154,10 +154,10 @@ SensorEventListener {
 				try {
 					//load cascade file from application resources
 					InputStream is = getResources().openRawResource(
-							R.raw.lbpcascade_frontalface);
+							R.raw.haarcascade_frontalface_default);
 					File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
 					mCascadeFile = new File(cascadeDir,
-							"lbpcascade_frontalface.xml");
+							"haarcascade_frontalface_default.xml");
 					FileOutputStream os = new FileOutputStream(mCascadeFile);
 
 					byte[] buffer = new byte[4096];
