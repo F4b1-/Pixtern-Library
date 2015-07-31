@@ -92,11 +92,11 @@ public class CardValidationActivity extends Activity {
 	private TessBaseAPI baseApi;
 	private static int RESULT_LOAD_IMAGE = 1;
 
-//	static {
-//		if (!OpenCVLoader.initDebug()) {
-//			// Handle initialization error
-//		}
-//	}
+	static {
+		if (!OpenCVLoader.initDebug()) {
+			// Handle initialization error
+		}
+	}
 
 	/** Loads all the OpenCV Dependencies and set ups the library for usage. **/
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -120,9 +120,9 @@ public class CardValidationActivity extends Activity {
 	private void initializeOpenCVDependencies() {
 		try {
 			// Setting up the cascade classifiers
-			InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
+			InputStream is = getResources().openRawResource(R.raw.haarcascade_frontalface_default);
 			File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-			File mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
+			File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_default.xml");
 			FileOutputStream os = new FileOutputStream(mCascadeFile);
 			byte[] buffer = new byte[4096];
 			int bytesRead;
@@ -150,11 +150,21 @@ public class CardValidationActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
+		//OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.main);
-//			mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+		if(android.os.Build.CPU_ABI.matches("[a][r][m].*")) {
+			mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		}else {
+			//Toast.makeText(findViewById(R.id.imgView).getContext(), "CPU: " + android.os.Build.CPU_ABI + " not suported", Toast.LENGTH_LONG).show();
+			Intent laresult = new Intent();
+			HashMap<String, Integer> theText = new HashMap<String, Integer>(); 
+			theText.put("CPU_Error", 1);
+			laresult.putExtra("theValidation", theText);
+			setResult(Activity.RESULT_OK, laresult);
+			finish();
+		}
 	}
 
 	/**
@@ -305,9 +315,8 @@ public class CardValidationActivity extends Activity {
 
 			MatOfRect traits = new MatOfRect();
 			if (cascadeClassifier != null) {
-//				cascadeClassifier.detectMultiScale(cropedImageFace, traits,  1.02, 2, 0, new Size(100, 100), new Size(500, 500)); //faces				
-			//	1.05, 6, 0, new Size(lowerLimit1, lowerLimit2), new Size(upperLimit1, upperLimit2)
-				cascadeClassifier.detectMultiScale(cropedImageFace, traits,1.05, 6, 0, new Size(100, 100), new Size(500, 500));
+
+				cascadeClassifier.detectMultiScale(cropedImageFace, traits);
 			}
 			Rect[] facesArray =traits.toArray();
 			for (int i = 0; i <facesArray.length; i++) {

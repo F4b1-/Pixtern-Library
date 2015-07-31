@@ -1,25 +1,24 @@
-#Pixtern#
+#Pixtern
 
 
 Pixtern is an open-source, template based face and card validation library for Android.
 
 
+ 
+##Libraries needed
 
-Libraries needed
--------------
 You will need the [tesseract](https://code.google.com/p/tesseract-ocr/), [OpenCV](http://sourceforge.net/projects/opencvlibrary/files/opencv-android/3.0.0/OpenCV-3.0.0-android-sdk-1.zip/download) and [ProgressWheel](https://github.com/Todd-Davies/ProgressWheel) libraries if you want to use Pixtern as a part of your own application.
 
-Project Structure
--------------
+##Project Structure
+
 **Face**
 The face recognition enables the user to get realtime feedback(currently: Face and Eyes) while taking a selfie. It is also possible to upload a Picture for validation(currently: Face, Eyes, Mouth, Brightness). Beheaviour of the activity can easily be modified by changing the templates file.
 
 **Card**
 The card validation enables the user to take a picture of a card that is validated against a template. It is possible to specify certain pattern (e.g. symbols or emblems) that all the cards of this type have to meet. Then, card information is beeing fetched from the text regions that have been specified in the tempate file.
 
+## How to use Pixtern within your Project (Eclipse)
 
-How to use Pixtern within your Project (Eclipse)
--------------
 
 1. Clone the Library on your machine
 2. Download the libraries needed (see below)
@@ -50,8 +49,8 @@ Remember that the Activity returns the result of the validation or the path to t
         }   
 ```
 
-Configure the face recognition
--------------
+##Configure the face recognition
+
 If you want an overview over the possible configurations please have a look at the sample rules file in this repo.
 You can turn the detection on/off for each trait and the brightness:
 ```
@@ -74,8 +73,7 @@ You can specify the allowed size of faces that are detections:
 distance.limit.lower=0,0
 distance.limit.upper=400,400
 ```
-How to set up a card template
--------------
+##How to set up a card template
 
 Create a new file called "rules.txt" in the res/raw folder of your application. If you want to create a new card use:
 ```

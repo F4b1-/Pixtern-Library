@@ -69,11 +69,11 @@ public class ValidateUploadActivity extends Activity {
 	private float brightness;
 	private static int RESULT_LOAD_IMAGE = 1;
 
-//	static {
-//		if (!OpenCVLoader.initDebug()) {
-//			// Handle initialization error
-//		}
-//	}
+	static {
+		if (!OpenCVLoader.initDebug()) {
+			// Handle initialization error
+		}
+	}
 
 	/** Loads all the OpenCV Dependencies and set ups the library for usage**/
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -105,9 +105,9 @@ public class ValidateUploadActivity extends Activity {
 	private void initializeOpenCVDependencies() {
 		try {
 			// Setting up the cascade classifiers
-			InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
+			InputStream is = getResources().openRawResource(R.raw.haarcascade_frontalface_default);
 			File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-			File mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
+			File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_default.xml");
 			FileOutputStream os = new FileOutputStream(mCascadeFile);
 
 			byte[] buffer = new byte[4096];
@@ -161,7 +161,6 @@ public class ValidateUploadActivity extends Activity {
 		} catch (Exception e) {
 			Log.e("OpenCVActivity", "Error loading cascade", e);
 		}
-		setUp();
 	}
 	
 	@Override
@@ -182,12 +181,9 @@ public class ValidateUploadActivity extends Activity {
 		brightness = 0;
 		
 		setContentView(R.layout.main);
-//		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
-		
-	}
-	
-	public void setUp() {
+		if(android.os.Build.CPU_ABI.matches("[a][r][m].*")) {
+		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+//		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
 		Intent i = new Intent(
 				Intent.ACTION_PICK,
 				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -217,8 +213,16 @@ public class ValidateUploadActivity extends Activity {
 
 		ProgressWheel pBar = (ProgressWheel) findViewById(R.id.progressBar);
 		pBar.setVisibility(View.GONE);
+		} else {
+		//	Toast.makeText(findViewById(R.id.imgView).getContext(), "CPU: " + android.os.Build.CPU_ABI + " not suported", Toast.LENGTH_LONG).show();
+			Intent laresult = new Intent();
+			HashMap<String, Integer> theText = new HashMap<String, Integer>(); 
+			theText.put("CPU_Error", 1);
+			laresult.putExtra("theValidation", theText);
+			setResult(Activity.RESULT_OK, laresult);
+			finish();
+		}
 	}
-	
 	
 	/** Receives the path of the uploaded image and starts the background thread for Validation**/
 	@Override
@@ -370,7 +374,7 @@ public class ValidateUploadActivity extends Activity {
 			pBar.setVisibility(View.GONE);
 //			ImageView imageView = (ImageView) findViewById(R.id.imgView);
 //			imageView.setVisibility(View.VISIBLE);
-////		imageView.setImageBitmap(resultBitmap);
+//			imageView.setImageBitmap(resultBitmap);
 			
 			//Reset ProgressBar 
 			incremented = 0;

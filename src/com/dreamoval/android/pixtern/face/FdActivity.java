@@ -137,11 +137,11 @@ SensorEventListener {
 	private Parameters parameters;
 
 
-	//	static {
-	//		if (!OpenCVLoader.initDebug()) {
-	//			// Handle initialization error
-	//		}
-	//	}
+	static {
+		if (!OpenCVLoader.initDebug()) {
+			// Handle initialization error
+		}
+	}
 
 	/** Loads all the OpenCV Dependencies and set ups the library for usage. */
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -154,10 +154,10 @@ SensorEventListener {
 				try {
 					//load cascade file from application resources
 					InputStream is = getResources().openRawResource(
-							R.raw.lbpcascade_frontalface);
+							R.raw.haarcascade_frontalface_default);
 					File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
 					mCascadeFile = new File(cascadeDir,
-							"lbpcascade_frontalface.xml");
+							"haarcascade_frontalface_default.xml");
 					FileOutputStream os = new FileOutputStream(mCascadeFile);
 
 					byte[] buffer = new byte[4096];
@@ -247,79 +247,86 @@ SensorEventListener {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		//check for CPU of phone
-		new AlertDialog.Builder(this)
-		.setTitle("Face Validation")
-		.setMessage("Place your face in the rectangle")
-		.setPositiveButton("Open", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) { 
-				openCamera();
-			}
-		})
-		.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) { 
-				finish();
-			}
-		})
-		.setIcon(android.R.drawable.ic_dialog_alert)
-		.show();
-
-		//Set up a sensor
-		sMgr = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
-		axis = sMgr.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-		setContentView(R.layout.face_detect_surface_view);
-		//mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
-		//Gets the display dimensions and sets the ratio of the frame size accordingly
-		getTemplate();
-		findViewById(R.id.buttonLoadPicture).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Toast.makeText(findViewById(R.id.fd_activity_surface_view).getContext(), "Picture is being taken", Toast.LENGTH_LONG).show();
-				arg0.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-				takePicture();
-			}
-		});
-		if(snapOnlyWhenDet)findViewById(R.id.buttonLoadPicture).setEnabled(false);
-		View buttonBack = findViewById(R.id.back);
-		buttonBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				arg0.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-				finish();
-			}
-		});
-		//Rotate Button Functionality
-		View buttonRotate = findViewById(R.id.rotate);
-		buttonRotate.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				arg0.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-				if(currentCam == 1) currentCam = -1;
-				else currentCam = 1;
-				openCamera();
-			}
-		});
-		//Flash Button Functionality
-		View buttonFlash = findViewById(R.id.flash);
-		buttonFlash.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				arg0.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-				if(flashOn == false) {
-					flashOn = true;
-					Toast.makeText(findViewById(R.id.frame_det).getContext(), "Flash: on", Toast.LENGTH_LONG).show();
+		if(android.os.Build.CPU_ABI.matches("[a][r][m].*")) {
+			new AlertDialog.Builder(this)
+			.setTitle("Face Validation")
+			.setMessage("Place your face in the rectangle")
+			.setPositiveButton("Open", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
 					openCamera();
 				}
-				else if (flashOn == true){
-					flashOn = false;
-					Toast.makeText(findViewById(R.id.frame_det).getContext(), "Flash: off", Toast.LENGTH_LONG).show();
+			})
+			.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					finish();
+				}
+			})
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.show();
+
+			//Set up a sensor
+			sMgr = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
+			axis = sMgr.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+			setContentView(R.layout.face_detect_surface_view);
+			//mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+			//Gets the display dimensions and sets the ratio of the frame size accordingly
+			getTemplate();
+			findViewById(R.id.buttonLoadPicture).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Toast.makeText(findViewById(R.id.fd_activity_surface_view).getContext(), "Picture is being taken", Toast.LENGTH_LONG).show();
+					arg0.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+					takePicture();
+				}
+			});
+			if(snapOnlyWhenDet)findViewById(R.id.buttonLoadPicture).setEnabled(false);
+			View buttonBack = findViewById(R.id.back);
+			buttonBack.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					arg0.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+					finish();
+				}
+			});
+			//Rotate Button Functionality
+			View buttonRotate = findViewById(R.id.rotate);
+			buttonRotate.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					arg0.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+					if(currentCam == 1) currentCam = -1;
+					else currentCam = 1;
 					openCamera();
 				}
+			});
+			//Flash Button Functionality
+			View buttonFlash = findViewById(R.id.flash);
+			buttonFlash.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					arg0.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+					if(flashOn == false) {
+						flashOn = true;
+						Toast.makeText(findViewById(R.id.frame_det).getContext(), "Flash: on", Toast.LENGTH_LONG).show();
+						openCamera();
+					}
+					else if (flashOn == true){
+						flashOn = false;
+						Toast.makeText(findViewById(R.id.frame_det).getContext(), "Flash: off", Toast.LENGTH_LONG).show();
+						openCamera();
+					}
 
-			}
-		});
-		TextView textV =	(TextView) findViewById(R.id.textView);
-		textV.setText(ErrorMess);
-		counter = 0;	
+				}
+			});
+			TextView textV =	(TextView) findViewById(R.id.textView);
+			textV.setText(ErrorMess);
+			counter = 0;	
+		}  else {
+			Intent laresult = new Intent();
+			laresult.putExtra("theSelfie", "CPU Error");
+			setResult(Activity.RESULT_OK, laresult);
+			finish();
+		}
 	}
 
 	public void takePicture() {
@@ -373,9 +380,9 @@ SensorEventListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this,
-				mLoaderCallback); 
-		//		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+		//		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this,
+		//				mLoaderCallback); 
+		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 		sMgr.registerListener(this, axis, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 

@@ -92,11 +92,11 @@ public class CardRealtimeActivity extends Activity implements CvCameraViewListen
 
 	private String cardType;
 
-//	static {
-//		if (!OpenCVLoader.initDebug()) {
-//			// Handle initialization error
-//		}
-//	}
+	static {
+		if (!OpenCVLoader.initDebug()) {
+			// Handle initialization error
+		}
+	}
 
 	/** Loads all the OpenCV Dependencies and set ups the library for usage. **/
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -127,6 +127,7 @@ public class CardRealtimeActivity extends Activity implements CvCameraViewListen
 		showOutline = true;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.card_main);
+		if(android.os.Build.CPU_ABI.matches("[a][r][m].*")) {
 			card = new Card();
 			matchingCard = false;
 			resource = "";
@@ -192,6 +193,13 @@ public class CardRealtimeActivity extends Activity implements CvCameraViewListen
 			})
 			.setIcon(android.R.drawable.ic_dialog_alert)
 			.show();
+		}else {
+			//	Toast.makeText(findViewById(R.id.fd_activity_surface_view).getContext(), "CPU: " + android.os.Build.CPU_ABI + " not suported", Toast.LENGTH_LONG).show();
+			Intent laresult = new Intent();
+			laresult.putExtra("theSelfie", "CPU Error");
+			setResult(Activity.RESULT_OK, laresult);
+			finish();
+		}
 	}
 
 	/**
@@ -220,6 +228,11 @@ public class CardRealtimeActivity extends Activity implements CvCameraViewListen
 		imgV.setImageBitmap(bimage);
 	}
 
+
+	//	public void startCameraPreview() {
+	//		setUpCamera();
+	//	}
+
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -228,9 +241,9 @@ public class CardRealtimeActivity extends Activity implements CvCameraViewListen
 	@Override
 	public void onResume() {
 		super.onResume();
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this,
-		mLoaderCallback); 
-//		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+		//OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this,
+		//mLoaderCallback); 
+		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 	}
 
 	@Override
