@@ -1,0 +1,13 @@
+# view res/layout/main.xml #generated:52
+# view res/layout/progress_wheel_activity.xml #generated:34
+# view res/layout/progress_wheel_activity.xml #generated:53
+# view res/layout/progress_wheel_activity.xml #generated:68
+-keep class com.todddavies.components.progressbar.ProgressWheel { <init>(...); }
+
+# view res/layout/card_main.xml #generated:64
+# view res/layout/card_main.xml #generated:80
+# view res/layout/face_detect_surface_view.xml #generated:60
+# view res/layout/face_detect_surface_view.xml #generated:68
+# view res/layout/face_detect_surface_view.xml #generated:81
+-keep class org.opencv.android.JavaCameraView { <init>(...); }
+

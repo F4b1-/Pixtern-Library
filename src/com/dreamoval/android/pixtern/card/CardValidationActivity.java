@@ -112,7 +112,6 @@ public class CardValidationActivity extends Activity {
 				super.onManagerConnected(status);
 			} break;
 			}
-
 		}
 	};
 
@@ -120,9 +119,9 @@ public class CardValidationActivity extends Activity {
 	private void initializeOpenCVDependencies() {
 		try {
 			// Setting up the cascade classifiers
-			InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
+			InputStream is = getResources().openRawResource(R.raw.haarcascade_frontalface_default);
 			File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-			File mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
+			File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_default.xml");
 			FileOutputStream os = new FileOutputStream(mCascadeFile);
 			byte[] buffer = new byte[4096];
 			int bytesRead;
@@ -307,7 +306,7 @@ public class CardValidationActivity extends Activity {
 			if (cascadeClassifier != null) {
 //				cascadeClassifier.detectMultiScale(cropedImageFace, traits,  1.02, 2, 0, new Size(100, 100), new Size(500, 500)); //faces				
 			//	1.05, 6, 0, new Size(lowerLimit1, lowerLimit2), new Size(upperLimit1, upperLimit2)
-				cascadeClassifier.detectMultiScale(cropedImageFace, traits,1.05, 6, 0, new Size(100, 100), new Size(500, 500));
+				cascadeClassifier.detectMultiScale(cropedImageFace, traits);
 			}
 			Rect[] facesArray =traits.toArray();
 			for (int i = 0; i <facesArray.length; i++) {

@@ -154,10 +154,10 @@ SensorEventListener {
 				try {
 					//load cascade file from application resources
 					InputStream is = getResources().openRawResource(
-							R.raw.lbpcascade_frontalface);
+							R.raw.haarcascade_frontalface_default);
 					File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
 					mCascadeFile = new File(cascadeDir,
-							"lbpcascade_frontalface.xml");
+							"haarcascade_frontalface_default.xml");
 					FileOutputStream os = new FileOutputStream(mCascadeFile);
 
 					byte[] buffer = new byte[4096];
@@ -538,8 +538,7 @@ SensorEventListener {
 					Mat eyesM = cropedImage.submat(eyesRoi);
 
 					if (eyesDetect == true) {
-						if (mJavaDetectorE != null)
-							//							mJavaDetectorE.detectMultiScale(eyesM, eyes, 1.1, 2, 0, new Size(0, 0), new Size(height * 0.3, height * 0.3));		
+						if (mJavaDetectorE != null)		
 							mJavaDetectorE.detectMultiScale(eyesM, eyes, 1.1, 20, 0, new Size(0, 0), new Size(height * 0.3, height * 0.3));
 					}
 				}
