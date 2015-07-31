@@ -69,11 +69,11 @@ public class ValidateUploadActivity extends Activity {
 	private float brightness;
 	private static int RESULT_LOAD_IMAGE = 1;
 
-//	static {
-//		if (!OpenCVLoader.initDebug()) {
-//			// Handle initialization error
-//		}
-//	}
+	static {
+		if (!OpenCVLoader.initDebug()) {
+			// Handle initialization error
+		}
+	}
 
 	/** Loads all the OpenCV Dependencies and set ups the library for usage**/
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -161,7 +161,6 @@ public class ValidateUploadActivity extends Activity {
 		} catch (Exception e) {
 			Log.e("OpenCVActivity", "Error loading cascade", e);
 		}
-		setUp();
 	}
 	
 	@Override
@@ -182,12 +181,8 @@ public class ValidateUploadActivity extends Activity {
 		brightness = 0;
 		
 		setContentView(R.layout.main);
-//		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
-		
-	}
-	
-	public void setUp() {
+		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+//		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
 		Intent i = new Intent(
 				Intent.ACTION_PICK,
 				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -218,7 +213,6 @@ public class ValidateUploadActivity extends Activity {
 		ProgressWheel pBar = (ProgressWheel) findViewById(R.id.progressBar);
 		pBar.setVisibility(View.GONE);
 	}
-	
 	
 	/** Receives the path of the uploaded image and starts the background thread for Validation**/
 	@Override

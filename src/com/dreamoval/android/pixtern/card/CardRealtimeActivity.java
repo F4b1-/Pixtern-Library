@@ -92,11 +92,11 @@ public class CardRealtimeActivity extends Activity implements CvCameraViewListen
 
 	private String cardType;
 
-//	static {
-//		if (!OpenCVLoader.initDebug()) {
-//			// Handle initialization error
-//		}
-//	}
+	static {
+		if (!OpenCVLoader.initDebug()) {
+			// Handle initialization error
+		}
+	}
 
 	/** Loads all the OpenCV Dependencies and set ups the library for usage. **/
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -220,6 +220,11 @@ public class CardRealtimeActivity extends Activity implements CvCameraViewListen
 		imgV.setImageBitmap(bimage);
 	}
 
+
+	//	public void startCameraPreview() {
+	//		setUpCamera();
+	//	}
+
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -228,9 +233,9 @@ public class CardRealtimeActivity extends Activity implements CvCameraViewListen
 	@Override
 	public void onResume() {
 		super.onResume();
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this,
-		mLoaderCallback); 
-//		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+		//OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this,
+		//mLoaderCallback); 
+		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 	}
 
 	@Override

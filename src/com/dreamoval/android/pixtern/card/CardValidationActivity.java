@@ -92,11 +92,11 @@ public class CardValidationActivity extends Activity {
 	private TessBaseAPI baseApi;
 	private static int RESULT_LOAD_IMAGE = 1;
 
-//	static {
-//		if (!OpenCVLoader.initDebug()) {
-//			// Handle initialization error
-//		}
-//	}
+	static {
+		if (!OpenCVLoader.initDebug()) {
+			// Handle initialization error
+		}
+	}
 
 	/** Loads all the OpenCV Dependencies and set ups the library for usage. **/
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -150,10 +150,10 @@ public class CardValidationActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
+		//OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.main);
-//			mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+			mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
