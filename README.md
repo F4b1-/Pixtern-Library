@@ -1,4 +1,5 @@
 Pixtern is an open-source, template based face and card validation library for Android.
+Check the [pixtern website](pixtern.org) for more information.
 
 
 
